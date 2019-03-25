@@ -1,5 +1,8 @@
 
-//register for activities
+//****************************//
+//  Register for activities
+//****************************//
+
 let totalCost = 0;
 $('.activities input[type="checkbox"]').on('change',function () {
     let clickedCheckbox = $(this);
@@ -44,3 +47,23 @@ $('.activities input[type="checkbox"]').on('change',function () {
     }
 });
 
+//*******************//
+//   Payment Info
+//*******************//
+
+$('#payment option').filter(':contains("Select Payment Method")').prop('disabled',true);
+//initially display default payment option only
+$('#payment option').filter(':contains("Credit Card")').prop('selected',true);
+$('#credit-card ~ div').filter('div:contains("PayPal"), div:contains("Bitcoin")').hide();
+
+$('#payment').on('change', function(){
+    let value = $(this).find(':selected').text();
+    //display payment option depending on selection
+    $('#credit-card ~ div').filter('div:contains(' + value + ')').show();
+    $('#credit-card ~ div').not('div:contains(' + value + ')').hide();
+    if (value === 'Credit Card') {
+        $('#credit-card').show();
+    } else{
+        $('#credit-card').hide();
+    }
+});
