@@ -67,3 +67,31 @@ $('#payment').on('change', function(){
         $('#credit-card').hide();
     }
 });
+
+//*******************//
+//   T-Shirt Info
+//*******************//
+
+$('#color').hide();
+$('#colors-js-puns').append('<p class="theme">Please select a T-shirt theme</p>');
+//initially hide color options, until a theme is selected
+$('#design').on('change', function () {
+    let theme = $(this).find(':selected').text();
+
+    if(theme === 'Select Theme') {
+        $('#color').hide();
+        $('p.theme').show();
+    } else {
+        //show color option for theme selected
+        $('p.theme').hide();
+        $('#color').show();
+        let regex = /Theme\s?-\s?(.+)/;
+        let themeToMatch = theme.replace(regex,'$1');
+
+        $('#color option').not(':contains(' + themeToMatch + ')').hide();
+        //show matching options, with default first selected
+        let optionsMatched = $('#color option').filter(':contains(' + themeToMatch + ')');
+        optionsMatched.first().prop('selected',true);
+        optionsMatched.show();
+    }
+});
