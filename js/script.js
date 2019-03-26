@@ -95,3 +95,19 @@ $('#design').on('change', function () {
         optionsMatched.show();
     }
 });
+
+//*******************//
+//   Job Role
+//*******************//
+
+$('#other-title').hide();
+
+$('#title').on('change', function () {
+    let title = $(this).find('option:selected').text();
+    if(title === 'Other') {
+        $('#other-title').show();
+    } else {
+        $('#other-title').hide();
+    }
+});
+
