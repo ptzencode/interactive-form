@@ -40,6 +40,10 @@ p.total {
 	font-size: 1.1em;
 }
 
+.error {
+    color: red;
+}
+
 /* =================================
   Form Element Styles
 ==================================== */
@@ -84,6 +88,10 @@ label {
 	margin-bottom: .5em;
 }
 
+.activities label:nth-of-type(1) {
+	padding-top: 1em;
+}
+
 input,
 select {
 	margin-bottom: 1.125em;
@@ -107,6 +115,10 @@ input:focus {
 input[type="checkbox"],
 input[type="radio"] {
 	display: inline-block;
+}
+
+.activities legend {
+	margin-bottom: 0.5em;
 }
 
 button {

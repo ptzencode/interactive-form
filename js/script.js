@@ -31,6 +31,9 @@ $('.activities input[type="checkbox"]').on('change',function () {
     let cost = parseFloat(labelText.match(regexCost)[1]);
     if(clickedCheckbox.is(":checked")){
         totalCost += cost;
+        //once a checkbox is clicked, remove any previous error
+        let $legend = $('.activities').find('legend');
+        $legend.next('.error').remove();
     } else {
         totalCost -= cost;
     }
@@ -110,4 +113,29 @@ $('#title').on('change', function () {
         $('#other-title').hide();
     }
 });
+
+//*******************//
+//   Validation
+//*******************//
+
+//**-Register for activities checkbox validation-**//
+
+function checkboxValidity(fieldset) {
+    let isChecked = fieldset.find('input[type="checkbox"]').is(':checked');
+    //remove previous error
+    let $legend = fieldset.find('legend');
+    $legend.next('.error').remove();
+
+    let $error = $('<span class="error">Please select atleast one activity</span>');
+
+    if(!isChecked) {
+        $error.insertAfter($legend);
+    } else {
+        $legend.next('.error').remove();
+    }
+    return isChecked;
+}
+
+let $fieldset = $('.activities');
+let isChecked = checkboxValidity($fieldset);
 
