@@ -118,7 +118,7 @@ $('#title').on('change', function () {
 //   Validation
 //*******************//
 
-//**-Register for activities checkbox validation-**//
+//**- Register for activities checkbox validation -**//
 
 function checkboxValidity(fieldset) {
     let isChecked = fieldset.find('input[type="checkbox"]').is(':checked');
@@ -136,6 +136,14 @@ function checkboxValidity(fieldset) {
     return isChecked;
 }
 
-let $fieldset = $('.activities');
-let isChecked = checkboxValidity($fieldset);
+//**- Form validation on submit -**//
 
+function formValidity(event) {
+    event.preventDefault();
+    let isChecked = false;
+
+    let $fieldset = $('.activities');
+    isChecked = checkboxValidity($fieldset);
+}
+
+$('form').on('submit', formValidity);
