@@ -118,6 +118,73 @@ $('#title').on('change', function () {
 //   Validation
 //*******************//
 
+//**- Input validation -**//
+//**- validation for name,email,card number,zip code,cvv -**//
+
+function processValidityOfInput(targetElement){
+    //remove previous error
+    targetElement.next('.error').remove();
+
+    let value = targetElement.val();
+    let pattern = '';
+    let hint = '';
+
+    //set test conditions based on the target element
+    if( targetElement.is('#cc-num') ) {
+        pattern = /^\d{13,16}$/;
+        hint = ' must have 13 to 16 digits';
+    } else if( targetElement.is('#zip') ) {
+        pattern = /^\d{5}$/;
+        hint = ' must have 5 digits';
+    } else if( targetElement.is('#cvv') ) {
+        pattern = /^\d{3}$/;
+        hint = ' must have 3 digits';
+    } else if( targetElement.is('#mail') ) {
+        //email should not have spaces, have only one @ character
+        //include 2-4 characters in domain eg: .co, .com, .info
+        pattern = /^[^@\s]+@[^@.\s]+\.[a-z]{2,4}$/i;
+        hint = ' address is not valid';
+    } else if( targetElement.is('#name') ) {
+        pattern = /^([a-zA-Z]+)[\s]*([a-zA-Z]+)?[\s]*$/;
+        hint = ' must be entered as Firstname Lastname(optional), use alphabets only';
+    }
+
+    //test validity of input value
+    let isValid = pattern.test(value);
+
+    let errorText = "";
+    //to build error text dynamically,
+    //get corresponding label elements text (eg. 'Email')
+    let labelPattern = /([a-zA-Z]+\s?[a-zA-Z]+)/;
+    let $label = targetElement.prev('label');
+    let labelText = $label.text().match(labelPattern)[0];
+
+    let $error = $('<span class="error"></span>');
+    //set error text for blank field or provide hint for invalid input
+    if(value === "") {
+        errorText = 'Please provide '+ labelText;
+    } else if(!isValid) {
+        errorText = labelText + hint;
+    }
+    //display error after element
+    $error.text(errorText);
+    $error.insertAfter(targetElement);
+    //remove error for valid input
+    if (isValid) {
+        targetElement.next('.error').remove();
+    }
+    return isValid;
+}
+
+// To test validity of entry on input
+// Attach event handler function for each input element
+$('#cc-num, #zip, #cvv, #mail, #name').each(function(){
+    $(this).on('input',function (event) {
+        let target = $(event.target);
+        processValidityOfInput(target);
+    });
+});
+
 //**- Register for activities checkbox validation -**//
 
 function checkboxValidity(fieldset) {

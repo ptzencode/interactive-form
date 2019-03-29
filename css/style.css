@@ -88,8 +88,15 @@ label {
 	margin-bottom: .5em;
 }
 
+label[for="mail"],
+label[for="title"],
+label[for="exp-month"],
 .activities label:nth-of-type(1) {
 	padding-top: 1em;
+}
+
+label[for="exp-month"] {
+    clear: both;
 }
 
 input,
@@ -117,6 +124,8 @@ input[type="radio"] {
 	display: inline-block;
 }
 
+input[type="text"],
+input[type="email"],
 .activities legend {
 	margin-bottom: 0.5em;
 }
