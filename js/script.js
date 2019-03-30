@@ -240,6 +240,19 @@ function formValidity(event) {
 
     formElementsValidity = isChecked && (notValid === 0);
     console.log("formElementsValidity: ", formElementsValidity);
+
+    let $hint = $('<span>Please correct invalid entries before submitting!</span>');
+    $('form').append($hint);
+    $hint.hide();
+    //show error message
+    if(!formElementsValidity) {
+        $hint.attr('class','error');
+        $hint.slideDown('slow').delay(2000).slideUp('slow');
+    } else if(formElementsValidity) {
+        $hint.text('All entries valid, ready to submit!');
+        $hint.attr('class','pass');
+        $hint.slideDown('slow').delay(2000).slideUp('slow');
+    }
 }
 
 $('form').on('submit', formValidity);
