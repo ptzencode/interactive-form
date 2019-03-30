@@ -208,9 +208,38 @@ function checkboxValidity(fieldset) {
 function formValidity(event) {
     event.preventDefault();
     let isChecked = false;
+    let notValid = 0;
+    let formElementsValidity = false;
 
+    //get checkbox validity
     let $fieldset = $('.activities');
     isChecked = checkboxValidity($fieldset);
+
+    //check validity of input
+    function getValidity (collection) {
+        collection.each(function(){
+            let element = $(this);
+            let isValid = processValidityOfInput(element);
+
+            if(!isValid) {
+                notValid += 1;
+            }
+        });
+    }
+
+    let collection = $('#name, #mail');
+    getValidity(collection);
+    //check  validity of credit card info only if selected
+    if($('#payment').find(':selected').text() === 'Credit Card') {
+        collection = $('#cc-num, #zip, #cvv');
+        getValidity(collection);
+    }
+
+    console.log("notValid: ",notValid);
+    console.log("isChecked: ",isChecked);
+
+    formElementsValidity = isChecked && (notValid === 0);
+    console.log("formElementsValidity: ", formElementsValidity);
 }
 
 $('form').on('submit', formValidity);
