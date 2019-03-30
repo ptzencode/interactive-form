@@ -40,8 +40,17 @@ p.total {
 	font-size: 1.1em;
 }
 
+.error,
+.pass {
+    font-style: italic;
+}
+
 .error {
     color: red;
+}
+
+.pass {
+    color: green;
 }
 
 /* =================================
