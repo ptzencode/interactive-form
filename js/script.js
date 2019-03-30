@@ -251,3 +251,8 @@ function formValidity(event) {
 }
 
 $('form').on('submit', formValidity);
+
+//focus on a name input field on page startup
+$(document).ready(function(){
+    $('#name').focus();
+});
